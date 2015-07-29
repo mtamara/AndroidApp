@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">PraksaTwitterApp</string>
+
+    <string name="hello_world">Hello world! This is text in activity</string>
+    <string name="action_settings">Settings</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Log in</string>
+    <string name="title_activity_homepage">HomepageActivity</string>
+    <string name="home_fragment">HomeFragment</string>
+    <string name="fragment_text_view">FragmentText</string>
+    <string name="sign_up">Sign up</string>
+    <string name="main_footer">TwitterApp developed by PraksaTim codecentric</string>
+    <string name="forgot_password">Forgot your password?</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="register">Register</string>
+    <string name="registration">Registration</string>
+    <string name="home">Home</string>
+    <string name="action_profile">Profile</string>
+    <string name="action_logout">Logout</string>
+    <string name="comment">Comment</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="apply_changes">Apply changes</string>
+    <string name="change_password">Change password</string>
+    <string name="new_password">New password</string>
+    <string name="confirm_new_password">Confirm new password</string>
+    <string name="tweet">Tweet</string>
+    <string name="action_following">Following</string>
+    <string name="post_tweet">Write something...</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_register_activity4">RegisterActivity</string>
+    <string name="title_activity_tweet">TweetActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_user_profile">UserProfileActivity</string>
+    <string name="title_activity_following">FollowingActivity</string>
+</resources>

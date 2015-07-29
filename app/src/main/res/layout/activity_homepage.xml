@@ -1,0 +1,59 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:focusable="true" android:focusableInTouchMode="true"
+    tools:context="rs.codecentric.praksatwitterapp.HomepageActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/password_margin_top"
+        >
+
+        <EditText android:id="@+id/txt_tweet_content_home"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:padding="10dp"
+            android:background="@drawable/edittextstyle"
+            android:hint="@string/post_tweet"
+            />
+
+        <Button
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp"
+            android:text="@string/tweet"
+            android:layout_marginTop="@dimen/password_margin_top"
+            android:background="#ff15abff"
+            android:textColor="#ffffffff"
+            android:onClick="postTweet"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/no_tweets"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textAlignment="center"
+        android:layout_marginTop="@dimen/password_margin_top"
+        android:background="@android:color/white"
+        android:visibility="invisible"
+        android:text="You haven't tweeted yet.\n Post your first tweet now."
+        android:textColor="@color/primary_text_default_material_light"
+        android:textSize="18sp"/>
+
+    <ListView
+        android:id="@+id/tweets_list_homepage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+    </ListView>
+
+
+</LinearLayout>
