@@ -26,7 +26,7 @@
         android:padding="10dp" >
 
         <TextView
-            android:id="@+id/tweetTitle"
+            android:id="@+id/tweet_owner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Header Text"
@@ -34,7 +34,7 @@
             android:textSize="19sp"
             android:textStyle="bold" />
         <TextView
-            android:id="@+id/tweetBody"
+            android:id="@+id/tweet_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -43,7 +43,7 @@
             android:textColor="#393939"
             android:textSize="14sp" />
         <TextView
-            android:id="@+id/tweetDate"
+            android:id="@+id/tweet_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -58,6 +58,7 @@
             android:orientation="horizontal"
             android:layout_marginTop="20dp"
             android:layout_gravity="start">
+
             <ImageButton
                 android:id="@+id/img_favorite"
                 android:layout_width="wrap_content"
@@ -69,12 +70,11 @@
                 android:background="#ffffffff" />
 
             <ImageButton
-                android:id="@+id/img_comment"
+                android:id="@+id/img_comment_tweet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_gravity="start"
-                android:onClick="comment"
                 android:contentDescription="unclicked"
                 android:src="@drawable/ic_comment"
                 android:background="#ffffffff" />
@@ -83,14 +83,34 @@
 
     </LinearLayout>
 
-    <fragment
-        android:id="@+id/comment_fragment"
-        android:name="rs.codecentric.praksatwitterapp.CommentFragment"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        tools:layout="@layout/fragment_comment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/password_margin_top"
+        >
+
+        <EditText android:id="@+id/txt_comment_content"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:padding="10dp"
+            android:background="@drawable/edittextstyle"
+            android:hint="Add a comment..."
+            />
+
+        <Button
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp"
+            android:text="@string/comment"
+            android:layout_marginTop="@dimen/password_margin_top"
+            android:background="#ff15abff"
+            android:textColor="#ffffffff"
+            android:onClick="addComment"/>
+
+    </LinearLayout>
+
 
 
 </LinearLayout>

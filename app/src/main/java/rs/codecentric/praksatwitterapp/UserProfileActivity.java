@@ -36,7 +36,6 @@ import retrofit.client.Response;
 
 public class UserProfileActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
 
-   // String API = "http://10.10.10.134:8083/praksaREST";
     ApiUtil api = new ApiUtil();
     ListView lview;
     TweetCustomAdapter adapter;
@@ -60,6 +59,7 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         userId = getIntent().getStringExtra("userId");
         //REST added
         final TextView txtUser = (TextView) findViewById(R.id.user);
+        final TextView txtFollowingNo = (TextView) findViewById(R.id.following_no);
         UserService git = restAdapter.create(UserService.class);
         if (userId == null) {
             userId = "55aea961f4aa1cb3ec9ed3d4";
@@ -70,6 +70,7 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
             public void success(User user, Response response) {
                 txtUser.setText(user.getFirstName() + " " + user.getLastName());
                 txtTweetsNo.setText(tweetsNo + " Tweets");
+                txtFollowingNo.setText(user.getFollowing().size() + " Following");
                 sessionUser = user;
             }
 
@@ -256,6 +257,14 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
             imgFav.setImageResource(R.drawable.ic_favorite);
         }
 
+    }
+
+    public void comment(View view) {
+        ImageButton imgCom = (ImageButton) view.findViewById(R.id.img_comment);
+        Intent intent = new Intent(this, TweetActivity.class);
+        intent.putExtra("tweetId", imgCom.getContentDescription().toString());
+        intent.putExtra("userId", userId);
+        startActivity(intent);
     }
 
 }

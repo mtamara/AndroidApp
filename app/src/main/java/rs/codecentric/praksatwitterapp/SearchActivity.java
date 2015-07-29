@@ -192,7 +192,7 @@ public class SearchActivity extends ActionBarActivity implements AdapterView.OnI
 
                     Intent intent = new Intent(SearchActivity.this,
                             SearchActivity.class);
-
+                    intent.putExtra("userId", userId);
                     startActivity(intent);
 
                     //lview.invalidate();

@@ -193,7 +193,7 @@ public class FollowingActivity extends ActionBarActivity implements OnItemClickL
 
                     Intent intent = new Intent(FollowingActivity.this,
                             FollowingActivity.class);
-
+                    intent.putExtra("userId", userId);
                     startActivity(intent);
 
                     //lview.invalidate();

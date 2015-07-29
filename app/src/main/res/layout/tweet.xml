@@ -99,6 +99,7 @@
                     android:contentDescription="unclicked"
                     android:src="@drawable/ic_comment"
                     android:background="#ffffffff" />
+
             </LinearLayout>
 
         </LinearLayout>

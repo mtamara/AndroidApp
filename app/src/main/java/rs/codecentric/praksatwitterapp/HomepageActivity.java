@@ -243,6 +243,13 @@ public class HomepageActivity extends ActionBarActivity implements AdapterView.O
             imgFav.setTag(0);
             imgFav.setImageResource(R.drawable.ic_favorite);
         }
+    }
 
+    public void comment(View view) {
+        ImageButton imgCom = (ImageButton) view.findViewById(R.id.img_comment);
+        Intent intent = new Intent(this, TweetActivity.class);
+        intent.putExtra("tweetId", imgCom.getContentDescription().toString());
+        intent.putExtra("userId", registeredUserId);
+        startActivity(intent);
     }
 }

@@ -40,10 +40,10 @@ public interface UserService {
     public  void getUsers(@Path("id")String userId, Callback<List<User>> response );
 
     @PUT("/users/{id}")
-    public User editUser(@Path("id")String userId,
+    public void editUser(@Path("id")String userId,
                          @Query("firstname") String firstname,
                          @Query("lastname") String lastname,
                          @Query("password") String password,
-                         Callback<List<User>> response );
+                         Callback<User> response );
 
 }

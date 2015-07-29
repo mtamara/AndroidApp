@@ -43,7 +43,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/following"
+            android:id="@+id/following_no"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="0 Following"

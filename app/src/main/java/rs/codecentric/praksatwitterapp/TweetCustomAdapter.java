@@ -87,6 +87,8 @@ public class TweetCustomAdapter extends BaseAdapter {
         holder.userData.setText(bean.getUserData());
         holder.tweetContent.setText(bean.getTweetContent());
         holder.tweetDate.setText(bean.getTweetDate());
+        holder.favorite.setContentDescription(bean.getTweetId());
+        holder.comment.setContentDescription(bean.getTweetId());
 
         return convertView;
     }

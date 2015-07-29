@@ -21,4 +21,7 @@ public interface TwitService {
 
     @POST("/tweets")
     public void postTweet(@Query("user") String userId, @Body Twit twit, Callback<Twit> response);
+
+    @GET("/tweet")
+    public void getTweetById(@Query("tweetId") String tweetId, Callback<Twit> response);
 }
