@@ -1,9 +1,8 @@
 package rs.codecentric.praksatwitterapp;
 
 import android.content.Intent;
-import android.media.Image;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,46 +11,45 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Twit;
 import model.User;
 import rest.ApiUtil;
-import rest.TwitService;
 import rest.UserService;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+/**
+ * Created by User on 29.7.2015.
+ */
+public class SearchActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
 
-public class FollowingActivity extends ActionBarActivity implements OnItemClickListener {
+    ApiUtil api = new ApiUtil();
+    ListView lview;
+    SearchCustomAdapter adapter;
+    private ArrayList<Object> followingList;
+    private FollowingBean bean;
+    RestAdapter restAdapter = new RestAdapter.Builder()
+            .setEndpoint(api.getAPI_URL()).build();
 
-        ApiUtil api = new ApiUtil();
-        ListView lview;
-        FollowingCustomAdapter adapter;
-        private ArrayList<Object> followingList;
-        private FollowingBean bean;
-        RestAdapter restAdapter = new RestAdapter.Builder()
-        .setEndpoint(api.getAPI_URL()).build();
-
-        private String followerId;
-        String userId;
+    private String followerId;
+    String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_following);
+        setContentView(R.layout.activity_search);
 
         userId = getIntent().getStringExtra("userId");
 
-        prepareFollowingList();
+        prepareSearchList();
         lview = (ListView) findViewById(R.id.following_list);
-        adapter = new FollowingCustomAdapter(this, followingList);
+        adapter = new SearchCustomAdapter(this, followingList);
         lview.setAdapter(adapter);
         lview.setOnItemClickListener(this);
     }
@@ -86,11 +84,6 @@ public class FollowingActivity extends ActionBarActivity implements OnItemClickL
         intent.putExtra("userId", userId);
         startActivity(intent);
     }
-    public void viewSearch() {
-        Intent intent = new Intent(this, SearchActivity.class);
-        intent.putExtra("userId", userId);
-        startActivity(intent);
-    }
 
 
     @Override
@@ -111,7 +104,7 @@ public class FollowingActivity extends ActionBarActivity implements OnItemClickL
             userProfile();
         }
         else if (id == R.id.action_follow) {
-            viewSearch();
+            return true;
         }
         else if (id == R.id.action_logout) {
             logout();
@@ -129,13 +122,13 @@ public class FollowingActivity extends ActionBarActivity implements OnItemClickL
         FollowingBean bean = (FollowingBean) adapter.getItem(position);
         followerId = bean.getFollowingId() + bean.getFollowingFirstName();
         Log.d("following name", "name" + bean.getFollowingFirstName());
-        Toast.makeText(this, "Title => "+bean.getFollowingFirstName()+" n Description => "+bean.getFollowingLastName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Title => " + bean.getFollowingFirstName() + " n Description => " + bean.getFollowingLastName(), Toast.LENGTH_SHORT).show();
     }
 
     /* Method used to prepare the ArrayList,
      * Same way, you can also do looping and adding object into the ArrayList.
      */
-    public void prepareFollowingList()
+    public void prepareSearchList()
     {
         followingList = new ArrayList<Object>();
         //REST added
@@ -144,12 +137,12 @@ public class FollowingActivity extends ActionBarActivity implements OnItemClickL
             userId = "55aea961f4aa1cb3ec9ed3d4";
         }
 
-        Log.d("Id je: ", " id- " + userId);
-        userService.getFollowing(userId, new Callback<List<User>>() {
+        userService.getUsers(userId, new Callback<List<User>>() {
+
             @Override
-            public void success(List<User> following, Response response) {
-                Log.d("Following", "Following: " + following.size());
-                for (User user : following) {
+            public void success(List<User> searchList, Response response) {
+                Log.d("Searched", "Searched list: " + searchList.size());
+                for (User user : searchList) {
                     AddObjectToList(R.drawable.ic_bird, user.getFirstName(), user.getLastName(), user.getId());
                 }
                 adapter.notifyDataSetChanged();
@@ -174,7 +167,7 @@ public class FollowingActivity extends ActionBarActivity implements OnItemClickL
         followingList.add(bean);
     }
 
-    public void removeUser(View view){
+    public void addUser(View view){
 
         followingList = new ArrayList<Object>();
         //REST added
@@ -183,7 +176,7 @@ public class FollowingActivity extends ActionBarActivity implements OnItemClickL
         followerId = imgbtn.getContentDescription().toString();
 
         UserService userService = restAdapter.create(UserService.class);
-        userService.addRemoveFollowingUser(userId, "removeFollower", followerId, new Callback<List<User>>() {
+        userService.addRemoveFollowingUser(userId, "addFollower", followerId, new Callback<List<User>>() {
             @Override
             public void success(List<User> users, Response response) {
                 Log.d("size", "size" + users.size());
@@ -191,8 +184,8 @@ public class FollowingActivity extends ActionBarActivity implements OnItemClickL
                 for (User user : users) {
                     AddObjectToList(R.drawable.ic_bird, user.getFirstName(), user.getLastName(), user.getId());
 
-                    Intent intent = new Intent(FollowingActivity.this,
-                            FollowingActivity.class);
+                    Intent intent = new Intent(SearchActivity.this,
+                            SearchActivity.class);
 
                     startActivity(intent);
 
@@ -209,6 +202,4 @@ public class FollowingActivity extends ActionBarActivity implements OnItemClickL
         });
 
     }
-
-
 }

@@ -97,6 +97,12 @@ public class SettingsActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
+    public void viewSearch() {
+        Intent intent = new Intent(this, SearchActivity.class);
+        intent.putExtra("userId", userId);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -113,6 +119,9 @@ public class SettingsActivity extends ActionBarActivity {
         }
         else if (id == R.id.action_profile) {
             userProfile();
+        }
+        else if (id == R.id.action_follow) {
+            viewSearch();
         }
         else if (id == R.id.action_following) {
             viewFollowing();

@@ -134,6 +134,12 @@ public class HomepageActivity extends ActionBarActivity implements AdapterView.O
         startActivity(intent);
     }
 
+    public void viewSearch() {
+        Intent intent = new Intent(this, SearchActivity.class);
+        intent.putExtra("userId", registeredUserId);
+        startActivity(intent);
+    }
+
     public void logout() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
@@ -163,6 +169,9 @@ public class HomepageActivity extends ActionBarActivity implements AdapterView.O
         }
         else if (id == R.id.action_following) {
             viewFollowing();
+        }
+        else if (id == R.id.action_follow) {
+            viewSearch();
         }
         else if (id == R.id.action_logout) {
             logout();

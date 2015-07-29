@@ -149,6 +149,13 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         startActivity(intent);
     }
 
+    public void viewSearch() {
+        Intent intent = new Intent(this, SearchActivity.class);
+        intent.putExtra("userId", userId);
+        startActivity(intent);
+    }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -168,6 +175,9 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         }
         else if (id == R.id.action_following) {
             viewFollowing();
+        }
+        else if (id == R.id.action_follow) {
+            viewSearch();
         }
         else if (id == R.id.action_logout) {
             logout();
