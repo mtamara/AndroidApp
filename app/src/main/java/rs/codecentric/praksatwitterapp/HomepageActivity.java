@@ -24,6 +24,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Gallery;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -55,6 +56,7 @@ public class HomepageActivity extends ActionBarActivity implements AdapterView.O
     RestAdapter restAdapter = new RestAdapter.Builder()
             .setEndpoint(api.getAPI_URL()).build();
     String registeredUserId;
+    private String tweetId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,7 @@ public class HomepageActivity extends ActionBarActivity implements AdapterView.O
         lview = (ListView) findViewById(R.id.tweets_list_homepage);
         adapter = new TweetCustomAdapter(this, tweetList);
         lview.setAdapter(adapter);
+        lview.setOnItemClickListener(this);
     }
 
     public void postTweet(View view) {
@@ -88,6 +91,7 @@ public class HomepageActivity extends ActionBarActivity implements AdapterView.O
                 newTweet.setTweetContent(tweet.getContent());
                 newTweet.setUserData(tweet.getOwnerName());
                 newTweet.setTweetDate("20.06.2015");
+                newTweet.setTweetId(tweet.getId());
 
                 tweetList.add(0, newTweet);
                 adapter.notifyDataSetChanged();
@@ -103,18 +107,6 @@ public class HomepageActivity extends ActionBarActivity implements AdapterView.O
         });
         //end of rest
     }
-
-
-    /*
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        //TextView t = (TextView) v.findViewById(R.id.tweetTitle);
-        //t.setText("Tweet Clicked");
-        Intent intent = new Intent(this, TweetActivity.class);
-        intent.putExtra("id", String.valueOf(id));
-        startActivity(intent);
-    }
-    */
 
     public void settings() {
         Intent intent = new Intent(this, SettingsActivity.class);
@@ -134,14 +126,14 @@ public class HomepageActivity extends ActionBarActivity implements AdapterView.O
         startActivity(intent);
     }
 
-    public void viewSearch() {
-        Intent intent = new Intent(this, SearchActivity.class);
-        intent.putExtra("userId", registeredUserId);
+    public void logout() {
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
-    public void logout() {
-        Intent intent = new Intent(this, MainActivity.class);
+    public void viewSearch() {
+        Intent intent = new Intent(this, SearchActivity.class);
+        intent.putExtra("userId", registeredUserId);
         startActivity(intent);
     }
 
@@ -170,11 +162,11 @@ public class HomepageActivity extends ActionBarActivity implements AdapterView.O
         else if (id == R.id.action_following) {
             viewFollowing();
         }
-        else if (id == R.id.action_follow) {
-            viewSearch();
-        }
         else if (id == R.id.action_logout) {
             logout();
+        }
+        else if (id == R.id.action_follow) {
+            viewSearch();
         }
 
         return super.onOptionsItemSelected(item);
@@ -184,7 +176,8 @@ public class HomepageActivity extends ActionBarActivity implements AdapterView.O
     public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
         // TODO Auto-generated method stub
         TweetBean bean = (TweetBean) adapter.getItem(position);
-        // Toast.makeText(this, "Title => " + bean.getTitle() + " n Description => " + bean.getDescription(), Toast.LENGTH_SHORT).show();
+        tweetId = bean.getTweetId();
+        Log.d("Tweet ID", "ID " + bean.getTweetId());
     }
 
     /* Method used to prepare the ArrayList,
@@ -205,13 +198,12 @@ public class HomepageActivity extends ActionBarActivity implements AdapterView.O
             public void success(List<Twit> twits, Response response) {
                 Log.d("velicina liste", "broj:" + tweetList.size());
                 for (Twit twit : twits) {
-                    AddObjectToList(R.drawable.ic_bird, twit.getOwnerName(), twit.getContent(), "11.11.2015");
+                    AddObjectToList(R.drawable.ic_bird, twit.getOwnerName(), twit.getContent(), "11.11.2015", twit.getId());
                 }
                 if (twits.isEmpty()) {
                     txtNoTweets.setVisibility(View.VISIBLE);
                     lview.setVisibility(View.INVISIBLE);
-                }
-                else {
+                } else {
                     txtNoTweets.setVisibility(View.INVISIBLE);
                 }
                 adapter.notifyDataSetChanged();
@@ -226,13 +218,31 @@ public class HomepageActivity extends ActionBarActivity implements AdapterView.O
     }
 
     // Add one item into the Array List
-    public void AddObjectToList(int image, String userData, String tweetContent, String tweetDate)
+    public void AddObjectToList(int image, String userData, String tweetContent, String tweetDate, String tweetId)
     {
         bean = new TweetBean();
         bean.setUserData(userData);
         bean.setUserImage(image);
         bean.setTweetContent(tweetContent);
         bean.setTweetDate(tweetDate);
+        bean.setTweetId(tweetId);
         tweetList.add(bean);
+    }
+
+    public void favorite(View view) {
+        ImageButton imgFav = (ImageButton) view.findViewById(R.id.img_favorite);
+        Log.d("Img button", "usao u favorite");
+        tweetId = imgFav.getContentDescription().toString();
+        Log.d("Img button", "usao u favorite" + tweetId);
+        Log.d("Img button", "tag" + imgFav.getTag());
+        if (imgFav.getTag() != 1) {
+            imgFav.setTag(1);
+            imgFav.setImageResource(R.drawable.ic_clicked_fav);
+        }
+        else {
+            imgFav.setTag(0);
+            imgFav.setImageResource(R.drawable.ic_favorite);
+        }
+
     }
 }

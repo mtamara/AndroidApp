@@ -85,6 +85,12 @@ public class SearchActivity extends ActionBarActivity implements AdapterView.OnI
         startActivity(intent);
     }
 
+    public void viewFollowing() {
+        Intent intent = new Intent(this, FollowingActivity.class);
+        intent.putExtra("userId", userId);
+        startActivity(intent);
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -94,7 +100,7 @@ public class SearchActivity extends ActionBarActivity implements AdapterView.OnI
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_following) {
+        if (id == R.id.action_follow) {
             return true;
         }
         else if (id == R.id.action_settings) {
@@ -103,14 +109,14 @@ public class SearchActivity extends ActionBarActivity implements AdapterView.OnI
         else if (id == R.id.action_profile) {
             userProfile();
         }
-        else if (id == R.id.action_follow) {
-            return true;
-        }
         else if (id == R.id.action_logout) {
             logout();
         }
         else if (id == R.id.home) {
             homepage();
+        }
+        else if (id == R.id.action_following) {
+            viewFollowing();
         }
 
         return super.onOptionsItemSelected(item);

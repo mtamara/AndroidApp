@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +48,7 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
     String userId;
     int tweetsNo = 0;
     TextView txtTweetsNo;
+    private String tweetId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -190,7 +192,8 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
     public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
         // TODO Auto-generated method stub
         TweetBean bean = (TweetBean) adapter.getItem(position);
-       // Toast.makeText(this, "Title => " + bean.getTitle() + " n Description => " + bean.getDescription(), Toast.LENGTH_SHORT).show();
+        tweetId = bean.getTweetId();
+        Log.d("Tweet ID", "ID " + bean.getTweetId());
     }
 
     /* Method used to prepare the ArrayList,
@@ -213,7 +216,7 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
                 tweetsNo = twits.size();
                 txtTweetsNo.setText(tweetsNo + " Tweets");
                 for (Twit twit : twits) {
-                    AddObjectToList(R.drawable.ic_bird, twit.getOwnerName(), twit.getContent(), "11.11.2015");
+                    AddObjectToList(R.drawable.ic_bird, twit.getOwnerName(), twit.getContent(), "11.11.2015", twit.getId());
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -227,14 +230,32 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
     }
 
     // Add one item into the Array List
-    public void AddObjectToList(int image, String userData, String tweetContent, String tweetDate)
+    public void AddObjectToList(int image, String userData, String tweetContent, String tweetDate, String tweetId)
     {
         bean = new TweetBean();
         bean.setUserData(userData);
         bean.setUserImage(image);
         bean.setTweetContent(tweetContent);
         bean.setTweetDate(tweetDate);
+        bean.setTweetId(tweetId);
         tweetList.add(bean);
+    }
+
+    public void favorite(View view) {
+        ImageButton imgFav = (ImageButton) view.findViewById(R.id.img_favorite);
+        Log.d("Img button", "usao u favorite");
+        tweetId = imgFav.getContentDescription().toString();
+        Log.d("Img button", "usao u favorite" + tweetId);
+        Log.d("Img button", "tag" + imgFav.getTag());
+        if (imgFav.getTag() != 1) {
+            imgFav.setTag(1);
+            imgFav.setImageResource(R.drawable.ic_clicked_fav);
+        }
+        else {
+            imgFav.setTag(0);
+            imgFav.setImageResource(R.drawable.ic_favorite);
+        }
+
     }
 
 }

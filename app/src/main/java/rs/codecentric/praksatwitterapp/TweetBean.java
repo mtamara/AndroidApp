@@ -9,7 +9,15 @@ public class TweetBean {
     String tweetContent;
     String userData;
     String tweetDate;
+    String tweetId;
 
+    public String getTweetId() {
+        return tweetId;
+    }
+
+    public void setTweetId(String tweetId) {
+        this.tweetId = tweetId;
+    }
 
     public int getUserImage() {
         return userImage;
