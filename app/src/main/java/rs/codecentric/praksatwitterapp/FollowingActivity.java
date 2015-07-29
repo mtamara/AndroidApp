@@ -64,6 +64,29 @@ public class FollowingActivity extends ActionBarActivity implements OnItemClickL
         return super.onCreateOptionsMenu(menu);
     }
 
+    public void settings() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        intent.putExtra("userId", userId);
+        startActivity(intent);
+    }
+
+    public void userProfile() {
+        Intent intent = new Intent(this, UserProfileActivity.class);
+        intent.putExtra("userId", userId);
+        startActivity(intent);
+    }
+
+    public void logout() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void homepage() {
+        Intent intent = new Intent(this, HomepageActivity.class);
+        intent.putExtra("userId", userId);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -72,8 +95,20 @@ public class FollowingActivity extends ActionBarActivity implements OnItemClickL
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_following) {
             return true;
+        }
+        else if (id == R.id.action_settings) {
+            settings();
+        }
+        else if (id == R.id.action_profile) {
+            userProfile();
+        }
+        else if (id == R.id.action_logout) {
+            logout();
+        }
+        else if (id == R.id.home) {
+            homepage();
         }
 
         return super.onOptionsItemSelected(item);

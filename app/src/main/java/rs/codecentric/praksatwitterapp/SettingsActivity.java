@@ -86,6 +86,17 @@ public class SettingsActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
+    public void viewFollowing() {
+        Intent intent = new Intent(this, FollowingActivity.class);
+        intent.putExtra("userId", userId);
+        startActivity(intent);
+    }
+
+    public void logout() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -102,6 +113,12 @@ public class SettingsActivity extends ActionBarActivity {
         }
         else if (id == R.id.action_profile) {
             userProfile();
+        }
+        else if (id == R.id.action_following) {
+            viewFollowing();
+        }
+        else if (id == R.id.action_logout) {
+            logout();
         }
 
         return super.onOptionsItemSelected(item);

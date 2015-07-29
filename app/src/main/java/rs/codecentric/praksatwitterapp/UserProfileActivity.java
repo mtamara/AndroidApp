@@ -138,6 +138,17 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         startActivity(intent);
     }
 
+    public void viewFollowing() {
+        Intent intent = new Intent(this, FollowingActivity.class);
+        intent.putExtra("userId", userId);
+        startActivity(intent);
+    }
+
+    public void logout() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -146,11 +157,20 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_profile) {
+            return true;
+        }
+        else if (id == R.id.action_settings) {
             settings();
         }
         else if (id == R.id.home) {
             homepage();
+        }
+        else if (id == R.id.action_following) {
+            viewFollowing();
+        }
+        else if (id == R.id.action_logout) {
+            logout();
         }
 
         return super.onOptionsItemSelected(item);

@@ -29,6 +29,7 @@
     <string name="tweet">Tweet</string>
     <string name="action_following">Following</string>
     <string name="post_tweet">Write something...</string>
+    <string name="action_follow">Follow</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -37,4 +38,5 @@
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_user_profile">UserProfileActivity</string>
     <string name="title_activity_following">FollowingActivity</string>
+    <string name="title_activity_search_users">SearchUsersActivity</string>
 </resources>

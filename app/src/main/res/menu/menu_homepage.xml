@@ -17,16 +17,22 @@
 
     <item android:id="@+id/action_following"
         android:title="@string/action_following"
+        android:icon="@drawable/ic_following"
         app:showAsAction="always" />
 
-    <!-- Help -->
+    <item android:id="@+id/action_follow"
+        android:title="@string/action_follow"
+        android:icon="@drawable/ic_add_following"
+        app:showAsAction="always" />
+
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:icon="@drawable/ic_settings"
         app:showAsAction="always"/>
 
-    <!-- Check updates -->
     <item android:id="@+id/action_logout"
         android:title="@string/action_logout"
+        android:icon="@drawable/ic_logout"
         app:showAsAction="always" />
+
 </menu>

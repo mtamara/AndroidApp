@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="end"
-        android:layout_marginLeft="80dp"
+        android:layout_marginLeft="100dp"
         >
 
         <ImageButton
@@ -69,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:src="@drawable/ic_bird"
+            android:src="@drawable/ic_remove"
             android:background="#ffffff"
             android:onClick="removeUser"
             />

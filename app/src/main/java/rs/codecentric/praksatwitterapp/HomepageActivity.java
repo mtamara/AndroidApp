@@ -134,6 +134,11 @@ public class HomepageActivity extends ActionBarActivity implements AdapterView.O
         startActivity(intent);
     }
 
+    public void logout() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -158,6 +163,9 @@ public class HomepageActivity extends ActionBarActivity implements AdapterView.O
         }
         else if (id == R.id.action_following) {
             viewFollowing();
+        }
+        else if (id == R.id.action_logout) {
+            logout();
         }
 
         return super.onOptionsItemSelected(item);
