@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -54,6 +55,8 @@ public class TweetCustomAdapter extends BaseAdapter {
         TextView tweetContent;
         TextView userData;
         TextView tweetDate;
+        ImageButton favorite;
+        ImageButton comment;
     }
 
     @Override
@@ -70,6 +73,8 @@ public class TweetCustomAdapter extends BaseAdapter {
             holder.userData = (TextView) convertView.findViewById(R.id.userData);
             holder.tweetContent = (TextView) convertView.findViewById(R.id.tweetContent);
             holder.tweetDate = (TextView) convertView.findViewById(R.id.tweetDate);
+            holder.favorite = (ImageButton) convertView.findViewById(R.id.img_favorite);
+            holder.comment = (ImageButton) convertView.findViewById(R.id.img_comment);
 
             convertView.setTag(holder);
         }

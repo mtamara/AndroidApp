@@ -3,16 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ffffff">
 
     <ImageView
         android:id="@+id/image_user"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="120dp"
         android:src="@drawable/ic_default_user"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp" />
-
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -45,15 +45,53 @@
             android:textSize="14sp" />
 
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:orientation="horizontal"
+            android:layout_gravity="left"
+            android:padding="5dp">
+
         <TextView
             android:id="@+id/tweetDate"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="20 Nov 2013"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_marginTop="5dp"
             android:textColor="#999999"
             android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="60dp"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="end">
+
+            <ImageButton
+                android:id="@+id/img_favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center"
+                android:src="@drawable/ic_favorite"
+                android:contentDescription="unclicked"
+                android:onClick="favorite"
+                android:background="#ffffffff" />
+
+            <ImageButton
+                android:id="@+id/img_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="start"
+                android:onClick="comment"
+                android:contentDescription="unclicked"
+                android:src="@drawable/ic_comment"
+                android:background="#ffffffff" />
+            </LinearLayout>
+
+        </LinearLayout>
 
 
     </LinearLayout>
