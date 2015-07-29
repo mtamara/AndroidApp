@@ -47,7 +47,7 @@ import retrofit.client.Response;
 
 public class HomepageActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
 
-   ApiUtil api = new ApiUtil();
+    ApiUtil api = new ApiUtil();
     ListView lview;
     TweetCustomAdapter adapter;
     private ArrayList<Object> tweetList;

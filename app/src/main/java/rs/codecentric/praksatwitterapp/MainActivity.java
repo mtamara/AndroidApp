@@ -22,11 +22,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import model.User;
+import rest.ApiUtil;
+import rest.UserService;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 public class MainActivity extends ActionBarActivity {
 
+    ApiUtil api = new ApiUtil();
     Button btnLogin;
     EditText username, password;
     public static String message;
+    RestAdapter restAdapter = new RestAdapter.Builder()
+            .setEndpoint(api.getAPI_URL()).build();
+    String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +52,40 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void login(View view) {
-        if (username.getText().toString().equals("a") && password.getText().toString().equals("a")) {
+        if (!username.getText().toString().equals("") && !password.getText().toString().equals("")) {
+
+            UserService userService = restAdapter.create(UserService.class);
+            userService.getUserByUsernamePassword(username.getText().toString(), password.getText().toString(), new Callback<User>() {
+
+                @Override
+                public void success(User user, Response response) {
+                    if (user != null) {
+                        Toast.makeText(getApplicationContext(), "Logging in...", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, HomepageActivity.class);
+                        intent.putExtra("userId", user.getId());
+                        startActivity(intent);
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    //TO-DO go to error page
+                    Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
+                }
+            });
+            //end of rest
+            /*
             Toast.makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, HomepageActivity.class);
             message = username.getText().toString();
             intent.putExtra("je ulogovan", message);
             startActivity(intent);
+            */
         } else {
-            Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Empty Credentials", Toast.LENGTH_SHORT).show();
         }
     }
 

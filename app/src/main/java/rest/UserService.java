@@ -31,4 +31,9 @@ public interface UserService {
     @POST("/users")
     public void registerUser(@Body User user, Callback<User> response);
 
+    @GET("/user")
+    public void getUserByUsernamePassword(@Query("username") String username,
+                                          @Query("password") String password,
+                                          Callback<User> response);
+
 }
