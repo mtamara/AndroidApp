@@ -73,6 +73,7 @@ public class MainActivity extends ActionBarActivity {
                 @Override
                 public void failure(RetrofitError error) {
                     //TO-DO go to error page
+                    Log.d("Greska", "Poruka: " + error.getMessage());
                     Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
                 }
             });

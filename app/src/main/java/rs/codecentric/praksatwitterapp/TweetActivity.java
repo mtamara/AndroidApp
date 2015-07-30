@@ -11,10 +11,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import model.Comment;
 import model.Twit;
@@ -29,7 +34,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
-public class TweetActivity extends ActionBarActivity {
+public class TweetActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
 
     ApiUtil api = new ApiUtil();
     RestAdapter restAdapter = new RestAdapter.Builder()
@@ -37,6 +42,13 @@ public class TweetActivity extends ActionBarActivity {
     String userId;
     String tweetId;
     User sessionUser = new User();
+
+    ListView lview;
+    CommentCustomAdapter adapter;
+    private ArrayList<Object> commentList;
+    private CommentBean bean;
+    Twit twit = new Twit();
+    private List<Comment> comments = new ArrayList<Comment>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +70,16 @@ public class TweetActivity extends ActionBarActivity {
                 txtTweetOwner.setText(twit.getOwnerName());
                 txtTweetContent.setText(twit.getContent());
                 txtTweetDate.setText("25.07.2015");
+                //twit = twit;
+                comments = twit.getComments();
+                if (!comments.isEmpty()) {
+                    prepareCommentsList();
+                    lview = (ListView) findViewById(R.id.comments_list);
+                    adapter = new CommentCustomAdapter(TweetActivity.this, commentList);
+                    lview.setAdapter(adapter);
+                    lview.setOnItemClickListener(TweetActivity.this);
+                    adapter.notifyDataSetChanged();
+                }
             }
 
             @Override
@@ -86,6 +108,7 @@ public class TweetActivity extends ActionBarActivity {
         //end of rest
 
 
+
     }
 
     @Override
@@ -104,6 +127,19 @@ public class TweetActivity extends ActionBarActivity {
         else {
             btnFav.setImageResource(R.drawable.ic_favorite);
             btnFav.setContentDescription("unclicked");
+        }
+    }
+
+    public void showComments(View view) {
+        ImageButton btnCom = (ImageButton)view.findViewById(R.id.img_comment_tweet);
+        if (!comments.isEmpty()) {
+            if (btnCom.getContentDescription().equals("unclicked")) {
+                lview.setVisibility(View.INVISIBLE);
+                btnCom.setContentDescription("clicked");
+            } else {
+                lview.setVisibility(View.VISIBLE);
+                btnCom.setContentDescription("unclicked");
+            }
         }
     }
 
@@ -196,6 +232,38 @@ public class TweetActivity extends ActionBarActivity {
             }
         });
         //end of rest
+    }
 
+
+    @Override
+    public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
+        // TODO Auto-generated method stub
+        CommentBean bean = (CommentBean) adapter.getItem(position);
+    }
+
+    /* Method used to prepare the ArrayList,
+     * Same way, you can also do looping and adding object into the ArrayList.
+     */
+    public void prepareCommentsList()
+    {
+        commentList = new ArrayList<Object>();
+        Log.d("Twit", "twit " + twit.getContent());
+        Log.d("Comments", "size " + comments.size());
+        Log.d("Tweet ID", "je " + tweetId);
+        for (Comment comment : comments) {
+            AddObjectToList(R.drawable.ic_default_user, comment.getContent(), comment.getOwnerName());
+        }
+       // adapter.notifyDataSetChanged();
+
+    }
+
+    // Add one item into the Array List
+    public void AddObjectToList(int ownerImage, String content, String ownerName)
+    {
+        bean = new CommentBean();
+        bean.setOwnerImage(ownerImage);
+        bean.setCommentContent(content);
+        bean.setOwnerName(ownerName);
+        commentList.add(bean);
     }
 }
